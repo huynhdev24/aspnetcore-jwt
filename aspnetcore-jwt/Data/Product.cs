@@ -21,7 +21,7 @@ namespace aspnetcore_jwt.Data
         public byte Discount { get; set; }
 
         public int? CategoryId { get; set; }
-        [ForeignKey("MaLoai")]
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
 
