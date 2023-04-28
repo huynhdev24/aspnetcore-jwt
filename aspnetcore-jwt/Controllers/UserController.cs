@@ -13,6 +13,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
+using aspnetcore_jwt.Utils;
 
 namespace aspnetcore_jwt.Controllers
 {
@@ -21,18 +24,20 @@ namespace aspnetcore_jwt.Controllers
     public class UserController : ControllerBase
     {
         private readonly MyDbContext _context;
-        private readonly AppSetting _appSettings;
+        //private readonly AppSetting _appSettings;, IOptionsMonitor<AppSetting> optionsMonitor
 
-        public UserController(MyDbContext context, IOptionsMonitor<AppSetting> optionsMonitor)
+        public UserController(MyDbContext context)
         {
             _context = context;
-            _appSettings = optionsMonitor.CurrentValue;
+            //_appSettings = optionsMonitor.CurrentValue;
         }
 
         [HttpPost("Login")]
         public async Task<IActionResult> Validate(LoginModel model)
         {
-            var user = _context.Users.SingleOrDefault(p => p.UserName == model.UserName && model.Password == p.Password);
+            //var user = _context.Users.SingleOrDefault(p => p.UserName == model.UserName && p.Password == PasswordHasher.Hashed(model.Password));
+            var user = _context.Users.SingleOrDefault(p => p.UserName == model.UserName && p.Password == model.Password);
+
             if (user == null) //user equals null
             {
                 return Ok(new ApiResponse
@@ -57,7 +62,7 @@ namespace aspnetcore_jwt.Controllers
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
 
-            var secretKeyBytes = Encoding.UTF8.GetBytes(_appSettings.SecretKey);
+            var secretKeyBytes = Encoding.UTF8.GetBytes("this is my custom Secret key for authentication");
 
             var tokenDescription = new SecurityTokenDescriptor
             {
@@ -117,7 +122,7 @@ namespace aspnetcore_jwt.Controllers
         public async Task<IActionResult> RenewToken(TokenModel model)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
-            var secretKeyBytes = Encoding.UTF8.GetBytes(_appSettings.SecretKey);
+            var secretKeyBytes = Encoding.UTF8.GetBytes("this is my custom Secret key for authentication");
             var tokenValidateParam = new TokenValidationParameters
             {
                 //tự cấp token

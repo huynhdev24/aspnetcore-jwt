@@ -2,6 +2,7 @@
 using aspnetcore_jwt.Data;
 using aspnetcore_jwt.Repositories;
 using aspnetcore_jwt.Services;
+using aspnetcore_jwt.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,8 @@ namespace aspnetcore_jwt
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine(PasswordHasher.Hashed("H123456@"));
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
