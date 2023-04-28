@@ -1,4 +1,8 @@
 
+using aspnetcore_jwt.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 namespace aspnetcore_jwt
 {
     public class Program
@@ -13,6 +17,9 @@ namespace aspnetcore_jwt
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<MyDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
 
             var app = builder.Build();
 

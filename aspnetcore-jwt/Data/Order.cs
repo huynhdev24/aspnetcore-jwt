@@ -1,10 +1,13 @@
-﻿namespace aspnetcore_jwt.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace aspnetcore_jwt.Data
 {
     public enum OrderStatus
     {
         New = 0, Payment = 1, Complete = 2, Cancel = -1
     }
 
+    [Table("Order")]
     public class Order
     {
         public Guid OrderId { get; set; }

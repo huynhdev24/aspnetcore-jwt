@@ -10,8 +10,8 @@ namespace aspnetcore_jwt.Data
         public int CategoryId { get; set; }
         [Required]
         [MaxLength(50)]
-        public string CategoryName { get; set; }
+        public string? CategoryName { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product>? Products { get; set; }
     }
 }
