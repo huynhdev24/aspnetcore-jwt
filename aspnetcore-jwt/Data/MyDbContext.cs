@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Reflection.Emit;
 
 namespace aspnetcore_jwt.Data
@@ -34,7 +35,7 @@ namespace aspnetcore_jwt.Data
 
                 entity.HasOne(e => e.Order)
                     .WithMany(e => e.OrderDetails)
-                    .HasForeignKey(e => e.MaDh)
+                    .HasForeignKey(e => e.OrderId)
                     .HasConstraintName("FK_OrderDetails_Order");
 
                 entity.HasOne(e => e.Product)
