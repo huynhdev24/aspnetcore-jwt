@@ -9,8 +9,8 @@ namespace aspnetcore_jwt.Repositories
     {
         List<CategoryVM> GetAll();
         CategoryVM GetById(int id);
-        CategoryVM Add(Category loai);
-        void Update(CategoryVM loai);
+        CategoryVM Add(Data.Category category);
+        void Update(CategoryVM category);
         void Delete(int id);
     }
 }
